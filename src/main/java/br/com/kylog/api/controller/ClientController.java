@@ -1,7 +1,7 @@
-package br.com.kylog.controller;
+package br.com.kylog.api.controller;
 
 import br.com.kylog.domain.model.Client;
-import br.com.kylog.repository.ClientRepository;
+import br.com.kylog.domain.repository.ClientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

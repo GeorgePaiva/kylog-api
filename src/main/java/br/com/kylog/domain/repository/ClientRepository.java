@@ -1,4 +1,4 @@
-package br.com.kylog.repository;
+package br.com.kylog.domain.repository;
 
 import br.com.kylog.domain.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
