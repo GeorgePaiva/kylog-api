@@ -1,5 +1,6 @@
 package br.com.kylog.api.exceptionhandler;
 
+import br.com.kylog.domain.exception.BusinessException;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -10,6 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -42,5 +44,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         clientException.setFields(fields);
 
         return handleExceptionInternal(ex, clientException, headers, status, request);
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<Object> handleBusiness(BusinessException ex, WebRequest request) {
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+
+        ClientException clientException = new ClientException();
+        clientException.setStatus(status.value());
+        clientException.setDateTime(LocalDateTime.now());
+        clientException.setMessage(ex.getMessage());
+
+        return handleExceptionInternal(ex, clientException, new HttpHeaders(), status, request);
     }
 }
